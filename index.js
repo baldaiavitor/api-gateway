@@ -20,7 +20,8 @@ app.use("/:endpoint", (req, res) => {
         host:req.get("host"),
         subdomain:subdomain,
         endpoint:req.originalUrl,
-        MSG:"404 not found"
+        MSG:"404 not found",
+        json:`gateway.domain[${domain}]?.endpoints[${method}][${endpoint}]`
     }
     res.status(404).send(errorResponse);
     res.end();
