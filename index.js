@@ -19,7 +19,7 @@ app.use('/:endpoint', (req,res)=>{
     method:req.method,
     fullUrl:fullUrl,
     endpointName:endpoint,
-    gatewayConfig:gateway.endpoints[endpoint]
+    endpointInfo:endpointInfo
   }
   res.send(response);
   res.end();
