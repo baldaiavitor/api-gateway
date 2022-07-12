@@ -40,7 +40,7 @@ app.use(async (req, res, next) => {
   //ignore .type for now
   return proxy(endpointInfo.to, {
     userResDecorator: function (proxyRes, proxyResData, userReq, userRes) {
-      return proxyResData;
+      return proxyResData.toString('utf8');
     },
   });
   next();
