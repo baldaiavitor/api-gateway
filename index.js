@@ -10,7 +10,14 @@ app.use("/:endpoint", (req, res) => {
   var fullUrl = req.protocol + "://" + req.get("host") + req.originalUrl;
 
   if (!endpointInfo) {
-    res.status(404).send(`${req.method}::/${endpoint} 404 not found`);
+    let errorResponse = {
+        protocol:req.protocol,
+        host:req.get("host"),
+        subdomains:req.subdomains,
+        endpoint:req.originalUrl,
+        MSG:"404 not found"
+    }
+    res.status(404).send(errorResponse);
     res.end();
     return;
   }
