@@ -6,11 +6,10 @@ const app = express();
 app.use("/:endpoint", (req, res) => {
   var endpoint = req.params.endpoint;
   var method = req.method.toString().toLowerCase();
-  //var endpointInfo = gateway?.endpoints[method][endpoint];
-  var endpointInfo = undefined;
   var fullUrl = req.protocol + "://" + req.get("host") + req.originalUrl;
   var subdomain = req.subdomains.join(".");
   var domain = req.get('host');
+  var endpointInfo = gateway.domain[domain]?.endpoints[method][endpoint];
 
   if (!endpointInfo) {
     let errorResponse = {

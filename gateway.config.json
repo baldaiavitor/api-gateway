@@ -1,7 +1,14 @@
 {
     "domain":{
-        "djin-tech":{
-            
+        "www.djin-tech.com:3000":{
+            "endpoints":{
+                "get":{
+                    "/test":{
+                        "to":"http://10.0.0.110:8080",
+                        "type":301
+                    }
+                }
+            }
         }
     }
 }
