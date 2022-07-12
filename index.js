@@ -1,7 +1,8 @@
 const settings = require("./settings.json");
 const gateway = require("./gateway.config.json");
 const express = require("express");
-const { createProxyMiddleware } = require('http-proxy-middleware');
+const { createProxyMiddleware } = require("http-proxy-middleware");
+var http = require("http");
 
 const app = express();
 
@@ -39,13 +40,38 @@ app.use(async (req, res, next) => {
   //   };
   //ignore .type for now
   //next();
-  return createProxyMiddleware({
-    target: endpointInfo.to,
-    pathRewrite: {
-      [`^/${endpoint}`]: '',
-    },
-    followRedirects: false,
-  })
+  //   return createProxyMiddleware({
+  //     target: endpointInfo.to,
+  //     pathRewrite: {
+  //       [`^/${endpoint}`]: '',
+  //     },
+  //     followRedirects: false,
+  //   })
+
+  var options = {
+    hostname: endpointInfo.to,
+    method: method.toUpperCase()
+  }
+
+  http
+    .request(options, (response) => {
+      let data = "";
+
+      response.on("data", (chunk) => {
+        data += chunk;
+      });
+
+      // Ending the response
+      response.on("end", () => {
+        res.write(data);
+        res.end();
+      });
+    })
+    .on("error", (err) => {
+        res.write(err);
+        res.end();
+    })
+    .end();
 });
 
 app.use((req, res, next) => {
