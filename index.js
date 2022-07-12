@@ -31,4 +31,6 @@ app.get('/', (req,res)=>{
 });
 
 // Listening to the port
-app.listen(settings.port)
+app.listen(settings.port, ()=>{
+    console.log(`API Gateway listening on port ${settings.port}`);
+})
