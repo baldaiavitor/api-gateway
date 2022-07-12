@@ -1,17 +1,7 @@
 {
-    "endpoints":{
-        "post":{
+    "domain":{
+        "djin-tech":{
             
-        },
-        "get":{
-            "test":{
-                "from":[
-                    "https://test.djin-tech.com:3000/test",
-                    "http://test.djin-tech.com:3000/test"
-                ],
-                "proxy":true,
-                "to":"http://10.0.0.110:8080"
-            }
         }
     }
 }
