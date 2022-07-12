@@ -13,6 +13,7 @@ app.use("/:endpoint", (req, res) => {
 
   if (!endpointInfo) {
     let errorResponse = {
+        method:method,
         fullUrl:fullUrl,
         domain:domain,
         protocol:req.protocol,
