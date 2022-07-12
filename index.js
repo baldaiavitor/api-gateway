@@ -44,7 +44,7 @@ app.use(async (req, res, next) => {
     pathRewrite: {
       [`^/${endpoint}`]: '',
     },
-    followRedirects: true,
+    followRedirects: false,
   })
 });
 
