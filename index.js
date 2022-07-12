@@ -1,17 +1,9 @@
 const settings = require("./settings.json");
 const gateway = require("./gateway.config.json");
 const express = require("express");
-var proxy = require('express-http-proxy');
+var proxy = require("express-http-proxy");
 
 const app = express();
-
-app.use('/proxy', proxy('www.google.com', {
-    userResDecorator: function(proxyRes, proxyResData, userReq, userRes) {
-      data = JSON.parse(proxyResData.toString('utf8'));
-      data.newProperty = 'exciting data';
-      return JSON.stringify(data);
-    }
-  }));
 
 app.use(async (req, res, next) => {
   var endpoint = req.url;
@@ -46,8 +38,11 @@ app.use(async (req, res, next) => {
   //     endpointInfo: endpointInfo,
   //   };
   //ignore .type for now
-  //proxy.web(req, res, { target:endpointInfo.to });
-  req.pipe(request(endpointInfo.to)).pipe(res);
+  return proxy(endpointInfo.to, {
+    userResDecorator: function (proxyRes, proxyResData, userReq, userRes) {
+      return proxyResData;
+    },
+  });
   next();
 });
 
