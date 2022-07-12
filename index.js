@@ -4,7 +4,7 @@ const express = require("express");
 const app = express();
 
 app.use(async (req, res, next) => {
-  var endpoint = req.baseUrl;
+  var endpoint = req.url;
   var method = req.method.toString().toLowerCase();
   var fullUrl = req.protocol + "://" + req.get("host") + req.originalUrl;
   var subdomain = req.subdomains.join(".");
