@@ -39,7 +39,8 @@ app.use(async (req, res, next) => {
   //     endpointInfo: endpointInfo,
   //   };
   //ignore .type for now
-  proxy.web(req, res, { target:endpointInfo.to });
+  //proxy.web(req, res, { target:endpointInfo.to });
+  req.pipe(request(endpointInfo.to)).pipe(res);
   next();
 });
 
