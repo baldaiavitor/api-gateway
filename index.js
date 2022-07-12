@@ -29,14 +29,13 @@ app.use(async (req, res, next) => {
     return;
   }
 
-  let response = {
-    method: req.method,
-    fullUrl: fullUrl,
-    endpointName: endpoint,
-    endpointInfo: endpointInfo,
-  };
-  res.send(response);
-  res.end();
+//   let response = {
+//     method: req.method,
+//     fullUrl: fullUrl,
+//     endpointName: endpoint,
+//     endpointInfo: endpointInfo,
+//   };
+  res.redirect(endpointInfo.type, endpointInfo.to)
   next();
 });
 
