@@ -16,7 +16,7 @@ app.use("/:endpoint", (req, res) => {
     let errorResponse = {
         domain:domain,
         protocol:req.protocol,
-        host:req.hostname,
+        host:req.get("host"),
         subdomain:subdomain,
         endpoint:req.originalUrl,
         MSG:"404 not found"
