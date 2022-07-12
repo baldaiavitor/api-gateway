@@ -3,8 +3,8 @@ const gateway = require("./gateway.config.json");
 const express = require("express");
 const app = express();
 
-app.use("/:endpoint", (req, res) => {
-  var endpoint = req.params.endpoint;
+app.use(async (req, res, next) => {
+  var endpoint = req.baseUrl;
   var method = req.method.toString().toLowerCase();
   var fullUrl = req.protocol + "://" + req.get("host") + req.originalUrl;
   var subdomain = req.subdomains.join(".");
@@ -25,6 +25,7 @@ app.use("/:endpoint", (req, res) => {
     }
     res.status(404).send(errorResponse);
     res.end();
+    next();
     return;
   }
 
@@ -36,17 +37,13 @@ app.use("/:endpoint", (req, res) => {
   };
   res.send(response);
   res.end();
+  next();
 });
 
 app.use((req, res, next) => {
   var fullUrl = req.protocol + "://" + req.get("host") + req.originalUrl;
   console.log(`API GATEWAY >> NEW REQUEST >> ${fullUrl} ${req.method}`);
   next();
-});
-
-app.get("/", (req, res) => {
-  res.send("Welcome to DJIN Api gateway");
-  res.end();
 });
 
 // Listening to the port
