@@ -1,7 +1,9 @@
 const settings = require("./settings.json");
 const gateway = require("./gateway.config.json");
 const express = require("express");
-var request = require("request");
+var httpProxy = require('http-proxy');
+var proxy = httpProxy.createProxyServer();
+
 const app = express();
 
 app.use(async (req, res, next) => {
@@ -37,7 +39,7 @@ app.use(async (req, res, next) => {
   //     endpointInfo: endpointInfo,
   //   };
   //ignore .type for now
-  request(endpointInfo.to).pipe(res);
+  proxy.web(req, res, { target:endpointInfo.to });
   next();
 });
 
