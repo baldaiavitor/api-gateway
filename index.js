@@ -9,9 +9,11 @@ app.use("/:endpoint", (req, res) => {
   var endpointInfo = gateway.endpoints[method][endpoint];
   var fullUrl = req.protocol + "://" + req.get("host") + req.originalUrl;
   var subdomain = req.subdomains.join(".");
-  
+  var domain = req.get('host');
+
   if (!endpointInfo) {
     let errorResponse = {
+        domain:domain,
         protocol:req.protocol,
         host:req.get("host"),
         subdomain:subdomain,
