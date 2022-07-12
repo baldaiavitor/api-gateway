@@ -8,12 +8,13 @@ app.use("/:endpoint", (req, res) => {
   var method = req.method.toString().toLowerCase();
   var endpointInfo = gateway.endpoints[method][endpoint];
   var fullUrl = req.protocol + "://" + req.get("host") + req.originalUrl;
-
+  var subdomain = req.subdomains.join(".");
+  
   if (!endpointInfo) {
     let errorResponse = {
         protocol:req.protocol,
         host:req.get("host"),
-        subdomains:req.subdomains,
+        subdomain:subdomain,
         endpoint:req.originalUrl,
         MSG:"404 not found"
     }
