@@ -5,7 +5,13 @@ var proxy = require('express-http-proxy');
 
 const app = express();
 
-app.use('/proxy', proxy('www.google.com'));
+app.use('/proxy', proxy('www.google.com', {
+    userResDecorator: function(proxyRes, proxyResData, userReq, userRes) {
+      data = JSON.parse(proxyResData.toString('utf8'));
+      data.newProperty = 'exciting data';
+      return JSON.stringify(data);
+    }
+  }));
 
 app.use(async (req, res, next) => {
   var endpoint = req.url;
