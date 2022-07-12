@@ -14,6 +14,7 @@ app.use("/:endpoint", (req, res) => {
 
   if (!endpointInfo) {
     let errorResponse = {
+        fullUrl:fullUrl,
         domain:domain,
         protocol:req.protocol,
         host:req.get("host"),
