@@ -1,10 +1,11 @@
 const settings = require("./settings.json");
 const gateway = require("./gateway.config.json");
 const express = require("express");
-var httpProxy = require('http-proxy');
-var proxy = httpProxy.createProxyServer();
+var proxy = require('express-http-proxy');
 
 const app = express();
+
+app.use('/proxy', proxy('www.google.com'));
 
 app.use(async (req, res, next) => {
   var endpoint = req.url;
